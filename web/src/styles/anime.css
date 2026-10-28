@@ -1,0 +1,554 @@
+/* ── Sakura Anime（二次元樱花主题）────────────────────────────────────── */
+[data-theme-preset='sakura'] {
+  --background: oklch(0.985 0.012 350);
+  --foreground: oklch(0.32 0.05 330);
+  --primary: oklch(0.68 0.17 352);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.8 0.1 228);
+  --secondary-foreground: oklch(0.25 0.05 250);
+  --ring: oklch(0.72 0.15 352);
+  --chart-1: oklch(0.7 0.17 352);
+  --chart-2: oklch(0.75 0.12 228);
+  --chart-3: oklch(0.8 0.12 300);
+  --chart-4: oklch(0.85 0.12 80);
+  --chart-5: oklch(0.78 0.12 165);
+  --destructive: oklch(0.62 0.21 20);
+  --sidebar-primary: oklch(0.68 0.17 352);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-ring: oklch(0.72 0.15 352);
+  --radius: 1.1rem;
+}
+.dark [data-theme-preset='sakura'] {
+  --background: oklch(0.2 0.035 300);
+  --foreground: oklch(0.95 0.02 340);
+  --primary: oklch(0.76 0.15 352);
+  --primary-foreground: oklch(0.2 0.04 330);
+  --secondary: oklch(0.62 0.11 230);
+  --secondary-foreground: oklch(0.98 0 0);
+  --ring: oklch(0.76 0.15 352);
+  --chart-1: oklch(0.76 0.15 352);
+  --chart-2: oklch(0.72 0.12 228);
+  --chart-3: oklch(0.74 0.13 300);
+  --chart-4: oklch(0.82 0.12 80);
+  --chart-5: oklch(0.74 0.12 165);
+  --sidebar-primary: oklch(0.76 0.15 352);
+  --sidebar-primary-foreground: oklch(0.2 0.04 330);
+  --sidebar-ring: oklch(0.76 0.15 352);
+}
+
+/* 背景：柔和渐变光斑 + 樱花花瓣飘落 */
+body[data-theme-preset='sakura'] {
+  background-image:
+    radial-gradient(60rem 40rem at 0% 0%, oklch(0.93 0.05 352 / 0.7), transparent 60%),
+    radial-gradient(50rem 35rem at 100% 10%, oklch(0.93 0.05 230 / 0.6), transparent 60%),
+    radial-gradient(45rem 35rem at 50% 110%, oklch(0.94 0.05 300 / 0.55), transparent 60%);
+  background-attachment: fixed;
+}
+.dark body[data-theme-preset='sakura'] {
+  background-image:
+    radial-gradient(60rem 40rem at 0% 0%, oklch(0.32 0.08 340 / 0.55), transparent 60%),
+    radial-gradient(50rem 35rem at 100% 10%, oklch(0.3 0.07 250 / 0.5), transparent 60%),
+    radial-gradient(45rem 35rem at 50% 110%, oklch(0.3 0.08 300 / 0.45), transparent 60%);
+}
+body[data-theme-preset='sakura']::before,
+body[data-theme-preset='sakura']::after {
+  content: '';
+  position: fixed;
+  inset: -10vh 0 0 0;
+  pointer-events: none;
+  z-index: 0;
+  background-repeat: repeat;
+  background-image:
+    radial-gradient(ellipse 7px 5px at 20px 30px, oklch(0.86 0.09 352 / 0.75) 60%, transparent 62%),
+    radial-gradient(ellipse 5px 4px at 140px 90px, oklch(0.9 0.07 345 / 0.7) 60%, transparent 62%),
+    radial-gradient(ellipse 6px 4px at 230px 180px, oklch(0.84 0.1 355 / 0.65) 60%, transparent 62%);
+  background-size: 300px 260px;
+  animation: sakura-fall 28s linear infinite;
+  opacity: 0.55;
+}
+body[data-theme-preset='sakura']::after {
+  background-size: 420px 380px;
+  animation-duration: 40s;
+  animation-delay: -12s;
+  opacity: 0.4;
+}
+.dark body[data-theme-preset='sakura']::before,
+.dark body[data-theme-preset='sakura']::after {
+  opacity: 0.22;
+}
+@keyframes sakura-fall {
+  from { background-position: 0 0, 0 0, 0 0; transform: translateX(0); }
+  50% { transform: translateX(18px); }
+  to { background-position: 60px 760px, -40px 760px, 30px 760px; transform: translateX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-theme-preset='sakura']::before,
+  body[data-theme-preset='sakura']::after { animation: none; }
+}
+body[data-theme-preset='sakura'] #root {
+  position: relative;
+  z-index: 1;
+}
+
+/* 卡片：毛玻璃 + 粉色柔光 */
+[data-theme-preset='sakura'] [data-slot='card'] {
+  background-color: color-mix(in oklch, var(--card) 82%, transparent);
+  backdrop-filter: blur(10px) saturate(1.2);
+  box-shadow: 0 6px 24px -10px color-mix(in oklch, var(--primary) 35%, transparent);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+[data-theme-preset='sakura'] [data-slot='card']:hover {
+  box-shadow: 0 10px 32px -10px color-mix(in oklch, var(--primary) 50%, transparent);
+}
+
+/* 主按钮：粉蓝渐变 + 果冻按压 */
+[data-theme-preset='sakura'] [data-slot='button'].bg-primary {
+  background-image: linear-gradient(135deg, var(--primary), color-mix(in oklch, var(--primary) 55%, var(--secondary)));
+  box-shadow: 0 4px 14px -4px color-mix(in oklch, var(--primary) 60%, transparent);
+}
+[data-theme-preset='sakura'] [data-slot='button'] {
+  transition: transform 0.12s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+[data-theme-preset='sakura'] [data-slot='button']:active {
+  transform: scale(0.96);
+}
+
+/* 选中文字 & 滚动条 */
+[data-theme-preset='sakura'] ::selection {
+  background: color-mix(in oklch, var(--primary) 30%, transparent);
+}
+[data-theme-preset='sakura'] * {
+  scrollbar-color: color-mix(in oklch, var(--primary) 45%, transparent) transparent;
+}
+
+/* ══ 自定义背景图层 ══════════════════════════════════════════════════════ */
+.anime-bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.anime-bg-layer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: color-mix(in oklch, var(--background) var(--anime-bg-veil, 45%), transparent);
+}
+body[data-anime-bg='on'] #root { position: relative; z-index: 1; }
+/* 有背景图时让主要容器半透明，透出图片 */
+body[data-anime-bg='on'] [data-slot='sidebar-inset'],
+body[data-anime-bg='on'] [data-slot='sidebar-wrapper'] {
+  background: transparent !important;
+}
+body[data-anime-bg='on'] [data-slot='sidebar-inner'] {
+  background: color-mix(in oklch, var(--sidebar) 72%, transparent);
+  backdrop-filter: blur(14px) saturate(1.2);
+}
+body[data-anime-bg='on'] [data-slot='card'] {
+  background-color: color-mix(in oklch, var(--card) 70%, transparent);
+}
+body[data-anime-bg='on']::before,
+body[data-anime-bg='on']::after { z-index: 0; }
+
+/* ══ 软萌布局（仅 sakura 主题生效）═══════════════════════════════════ */
+/* 按钮：胶囊形、圆润、轻微弹跳 */
+[data-theme-preset='sakura'] [data-slot='button'] {
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+[data-theme-preset='sakura'] [data-slot='button']:not(:disabled):hover {
+  transform: translateY(-1px);
+}
+[data-theme-preset='sakura'] [data-slot='button'][data-variant='outline'],
+[data-theme-preset='sakura'] [data-slot='button'].border {
+  border-width: 1.5px;
+  border-color: color-mix(in oklch, var(--primary) 35%, var(--border));
+}
+/* 图标按钮保持正圆 */
+[data-theme-preset='sakura'] [data-slot='button'][class*='size-'] { border-radius: 999px; }
+
+/* 输入框 / 下拉：圆润 + 粉色聚焦光晕 */
+[data-theme-preset='sakura'] input:not([type='checkbox']):not([type='radio']):not([type='range']),
+[data-theme-preset='sakura'] textarea,
+[data-theme-preset='sakura'] [data-slot='select-trigger'],
+[data-theme-preset='sakura'] [data-slot='input-group'] {
+  border-radius: 14px;
+}
+[data-theme-preset='sakura'] input:focus-visible,
+[data-theme-preset='sakura'] textarea:focus-visible {
+  box-shadow: 0 0 0 4px color-mix(in oklch, var(--primary) 18%, transparent);
+}
+
+/* 卡片：更大圆角、更松的内边距 */
+[data-theme-preset='sakura'] [data-slot='card'] {
+  border-radius: 1.5rem;
+  border-color: color-mix(in oklch, var(--primary) 16%, var(--border));
+}
+[data-theme-preset='sakura'] [data-slot='card']:hover { transform: translateY(-2px); }
+
+/* 侧边栏菜单：胶囊式选中态 + 左侧小樱花 */
+[data-theme-preset='sakura'] [data-slot='sidebar-menu-button'] {
+  border-radius: 999px;
+  padding-inline: 0.85rem;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+[data-theme-preset='sakura'] [data-slot='sidebar-menu-button']:hover { transform: translateX(2px); }
+[data-theme-preset='sakura'] [data-slot='sidebar-menu-button'][data-active]:not([data-active='false']) {
+  background: linear-gradient(90deg, color-mix(in oklch, var(--primary) 22%, transparent), color-mix(in oklch, var(--secondary) 14%, transparent));
+  color: var(--foreground);
+  font-weight: 600;
+  box-shadow: inset 0 0 0 1px color-mix(in oklch, var(--primary) 25%, transparent);
+}
+[data-theme-preset='sakura'] [data-slot='sidebar-group-label'] {
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+[data-theme-preset='sakura'] [data-slot='sidebar-group-label']::before {
+  content: '✿';
+  margin-right: 0.35rem;
+  color: var(--primary);
+  font-size: 0.7rem;
+}
+
+/* 标签 / 徽章 */
+[data-theme-preset='sakura'] [data-slot='badge'] { border-radius: 999px; padding-inline: 0.6rem; }
+
+/* 开关：粉色 */
+[data-theme-preset='sakura'] [data-slot='switch'][data-checked] {
+  background-image: linear-gradient(135deg, var(--primary), color-mix(in oklch, var(--primary) 50%, var(--secondary)));
+}
+
+/* 表格：圆角容器 + 斑马纹淡粉 */
+[data-theme-preset='sakura'] [data-slot='table-container'] {
+  border-radius: 1.25rem;
+  overflow: hidden;
+}
+[data-theme-preset='sakura'] [data-slot='table'] tbody tr:hover {
+  background: color-mix(in oklch, var(--primary) 7%, transparent);
+}
+
+/* 弹窗 / 抽屉 */
+[data-theme-preset='sakura'] [data-slot='dialog-content'],
+[data-theme-preset='sakura'] [data-slot='alert-dialog-content'] {
+  border-radius: 1.75rem;
+}
+[data-theme-preset='sakura'] [data-slot='sheet-content'] {
+  border-top-left-radius: 1.75rem;
+  border-bottom-left-radius: 1.75rem;
+}
+[data-theme-preset='sakura'] [data-slot='dropdown-menu-content'],
+[data-theme-preset='sakura'] [data-slot='popover-content'],
+[data-theme-preset='sakura'] [data-slot='select-content'] {
+  border-radius: 1.1rem;
+}
+[data-theme-preset='sakura'] [data-slot='dropdown-menu-item'] { border-radius: 0.8rem; }
+
+/* 标签页：胶囊 */
+[data-theme-preset='sakura'] [data-slot='tabs-list'] { border-radius: 999px; padding: 4px; }
+[data-theme-preset='sakura'] [data-slot='tabs-trigger'] { border-radius: 999px; }
+
+/* 钱包页：兑换按钮更大更显眼 */
+[data-theme-preset='sakura'] .anime-wallet [data-slot='button'] { height: 2.9rem; font-size: 0.95rem; }
+
+/* ===================== v2: anime layout ===================== */
+:root { --anime-chibi-sleep: none; }
+body[data-theme-preset='sakura'][data-anime-bg='on'] .bg-background.relative.min-h-svh,
+body[data-theme-preset='sakura'][data-anime-bg='on'] main.bg-background {
+  background-color: transparent !important;
+}
+body[data-theme-preset='sakura'][data-anime-bg='on'] [data-slot='sidebar-inset'] main,
+body[data-theme-preset='sakura'][data-anime-bg='on'] [data-slot='sidebar-inset'] {
+  background: color-mix(in oklab, var(--background) 62%, transparent) !important;
+  backdrop-filter: blur(6px);
+}
+body[data-theme-preset='sakura'] header.sticky {
+  background: color-mix(in oklab, var(--background) 55%, transparent) !important;
+  backdrop-filter: blur(14px) saturate(1.3);
+  border-bottom: 1.5px dashed color-mix(in oklab, var(--primary) 30%, transparent);
+}
+
+/* rounded cute font for headings & numbers */
+body[data-theme-preset='sakura'] h1,
+body[data-theme-preset='sakura'] h2,
+body[data-theme-preset='sakura'] h3,
+body[data-theme-preset='sakura'] .anime-rounded,
+body[data-theme-preset='sakura'] .tabular-nums {
+  font-family: ui-rounded, 'Varela Round', 'Nunito', 'PingFang SC', 'Hiragino Maru Gothic ProN', 'Microsoft YaHei UI', sans-serif;
+}
+
+/* ---------- Hero ---------- */
+.anime-hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: 6rem 1.25rem 2rem;
+  overflow: hidden;
+}
+.anime-hero-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 72rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  align-items: center;
+  gap: 2rem;
+}
+.anime-hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 2.25rem 2.25rem 2rem;
+  border-radius: 2rem;
+  background: color-mix(in oklab, var(--background) 72%, transparent);
+  border: 2px solid color-mix(in oklab, var(--primary) 25%, white);
+  box-shadow: 0 18px 50px -18px color-mix(in oklab, var(--primary) 45%, transparent),
+    inset 0 0 0 6px color-mix(in oklab, white 35%, transparent);
+  backdrop-filter: blur(14px) saturate(1.3);
+  animation: anime-pop-in 0.7s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+.anime-chip {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary);
+  background: color-mix(in oklab, var(--primary) 12%, white);
+  border: 1.5px dashed color-mix(in oklab, var(--primary) 45%, transparent);
+}
+.anime-hero-title {
+  font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  background: linear-gradient(120deg, oklch(0.66 0.2 352), oklch(0.7 0.16 300) 50%, oklch(0.7 0.13 230));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 3px 0 color-mix(in oklab, white 80%, transparent));
+}
+.anime-hero-sub {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--muted-foreground);
+  max-width: 32rem;
+}
+.anime-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 0.25rem;
+}
+.anime-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  height: 3.4rem;
+  padding: 0 1.75rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  transition: transform 0.18s cubic-bezier(0.3, 1.6, 0.5, 1), box-shadow 0.2s;
+  user-select: none;
+}
+.anime-btn:hover { transform: translateY(-3px) scale(1.03); }
+.anime-btn:active { transform: translateY(1px) scale(0.96); }
+.anime-btn-primary {
+  color: white;
+  background: linear-gradient(135deg, oklch(0.72 0.18 355), oklch(0.68 0.17 330));
+  box-shadow: 0 6px 0 oklch(0.58 0.17 345), 0 14px 28px -10px oklch(0.6 0.2 350 / 0.7);
+}
+.anime-btn-primary:active { box-shadow: 0 2px 0 oklch(0.58 0.17 345); }
+.anime-btn-ghost {
+  color: oklch(0.5 0.13 235);
+  background: color-mix(in oklab, white 80%, transparent);
+  border: 2px solid oklch(0.82 0.09 228);
+  box-shadow: 0 6px 0 oklch(0.82 0.09 228);
+}
+.dark .anime-btn-ghost { background: color-mix(in oklab, var(--background) 70%, transparent); color: oklch(0.85 0.09 228); }
+.anime-hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--muted-foreground);
+}
+.anime-hero-tags span {
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--secondary) 35%, transparent);
+}
+.anime-hero-figure {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: min(80svh, 46rem);
+}
+.anime-tachie {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 0 white) drop-shadow(0 0 6px white) drop-shadow(0 20px 30px oklch(0.6 0.15 350 / 0.35));
+  animation: anime-float 5.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ---------- speech bubble ---------- */
+.anime-bubble {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.8rem 1.15rem;
+  border-radius: 1.4rem;
+  background: white;
+  color: oklch(0.35 0.05 340);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  border: 2.5px solid oklch(0.85 0.08 352);
+  box-shadow: 0 6px 0 oklch(0.88 0.06 352), 0 14px 26px -14px oklch(0.6 0.15 350 / 0.6);
+  animation: anime-pop-in 0.45s cubic-bezier(0.2, 1.5, 0.4, 1) both;
+}
+.dark .anime-bubble { background: oklch(0.27 0.04 310); color: oklch(0.94 0.02 340); border-color: oklch(0.5 0.1 340); box-shadow: 0 6px 0 oklch(0.4 0.08 340); }
+.anime-bubble b { color: var(--primary); font-weight: 800; }
+.anime-bubble-hero {
+  position: absolute;
+  top: 8%;
+  left: -6%;
+  z-index: 2;
+  max-width: 15rem;
+}
+.anime-bubble-hero::after,
+.anime-bubble-left::after {
+  content: '';
+  position: absolute;
+  width: 1.1rem;
+  height: 1.1rem;
+  background: inherit;
+  border: inherit;
+  border-top: 0;
+  border-left: 0;
+}
+.anime-bubble-hero::after { right: 1.6rem; bottom: -0.65rem; transform: rotate(45deg); }
+.anime-bubble-left::after { left: -0.65rem; top: 50%; margin-top: -0.55rem; transform: rotate(135deg); }
+
+/* ---------- dashboard welcome ---------- */
+.anime-welcome { display: flex; flex-direction: column; gap: 1rem; }
+.anime-welcome-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 1.5rem 1rem 1rem;
+  border-radius: 1.75rem;
+  background: linear-gradient(120deg, color-mix(in oklab, oklch(0.9 0.07 352) 75%, transparent), color-mix(in oklab, oklch(0.9 0.06 228) 65%, transparent));
+  border: 2px solid color-mix(in oklab, white 70%, transparent);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+}
+.dark .anime-welcome-card { background: linear-gradient(120deg, oklch(0.32 0.07 340 / 0.75), oklch(0.3 0.06 260 / 0.7)); border-color: oklch(0.45 0.06 320 / 0.6); }
+.anime-welcome-card::before {
+  content: '✿  ✦  ♡  ✿  ✦';
+  position: absolute;
+  right: 1.25rem;
+  top: 0.6rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.3em;
+  color: color-mix(in oklab, var(--primary) 45%, transparent);
+}
+.anime-welcome-mascot {
+  width: 6.5rem;
+  height: 6.5rem;
+  object-fit: contain;
+  flex-shrink: 0;
+  animation: anime-float 4.5s ease-in-out infinite;
+  filter: drop-shadow(0 8px 10px oklch(0.6 0.15 350 / 0.35));
+}
+.anime-bubble-left { flex: 1; min-width: 0; }
+.anime-menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+  gap: 0.85rem;
+}
+.anime-tile {
+  --tone: oklch(0.72 0.16 352);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1.1rem 0.5rem 0.95rem;
+  border-radius: 1.5rem;
+  background: color-mix(in oklab, var(--card) 78%, transparent);
+  border: 2px solid color-mix(in oklab, var(--tone) 22%, transparent);
+  box-shadow: 0 5px 0 color-mix(in oklab, var(--tone) 25%, transparent);
+  backdrop-filter: blur(10px);
+  transition: transform 0.18s cubic-bezier(0.3, 1.6, 0.5, 1), box-shadow 0.18s;
+  text-align: center;
+}
+.anime-tile:hover { transform: translateY(-4px) rotate(-1.5deg); box-shadow: 0 9px 0 color-mix(in oklab, var(--tone) 35%, transparent); }
+.anime-tile:active { transform: translateY(2px) scale(0.96); box-shadow: 0 2px 0 color-mix(in oklab, var(--tone) 35%, transparent); }
+.anime-tile[data-tone='sky'] { --tone: oklch(0.72 0.12 230); }
+.anime-tile[data-tone='lilac'] { --tone: oklch(0.7 0.13 300); }
+.anime-tile[data-tone='mint'] { --tone: oklch(0.74 0.12 165); }
+.anime-tile[data-tone='peach'] { --tone: oklch(0.76 0.13 55); }
+.anime-tile-icon {
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 1.1rem;
+  color: white;
+  background: linear-gradient(140deg, color-mix(in oklab, var(--tone) 80%, white), var(--tone));
+  box-shadow: inset 0 -4px 0 color-mix(in oklab, var(--tone) 70%, black 10%), 0 6px 14px -6px var(--tone);
+}
+.anime-tile-label { font-size: 0.88rem; font-weight: 700; }
+
+/* ---------- empty state chibi ---------- */
+body[data-theme-preset='sakura'] [data-slot='empty-header']::before {
+  content: '';
+  display: block;
+  width: 8rem;
+  height: 8rem;
+  margin: 0 auto 0.25rem;
+  background: var(--anime-chibi-sleep) center / contain no-repeat;
+  animation: anime-float 4s ease-in-out infinite;
+}
+body[data-theme-preset='sakura'] [data-slot='empty-icon'] { display: none; }
+
+/* ---------- toolbar / page header buttons ---------- */
+body[data-theme-preset='sakura'] h2.truncate::before {
+  content: '♡ ';
+  color: var(--primary);
+}
+
+@keyframes anime-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes anime-pop-in { from { opacity: 0; transform: translateY(14px) scale(0.92); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 860px) {
+  .anime-hero { padding-top: 5rem; align-items: flex-start; }
+  .anime-hero-inner { grid-template-columns: 1fr; gap: 0; }
+  .anime-hero-figure { order: -1; height: 46svh; }
+  .anime-bubble-hero { left: 2%; top: 4%; max-width: 11rem; font-size: 0.82rem; }
+  .anime-hero-text { margin-top: -3rem; padding: 1.5rem; text-align: center; align-items: center; }
+  .anime-chip { align-self: center; }
+  .anime-hero-actions, .anime-hero-tags { justify-content: center; }
+  .anime-btn { flex: 1 1 10rem; height: 3.1rem; }
+  .anime-welcome-mascot { width: 4.5rem; height: 4.5rem; }
+  .anime-menu-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .anime-tachie, .anime-welcome-mascot, [data-slot='empty-header']::before { animation: none !important; }
+}
